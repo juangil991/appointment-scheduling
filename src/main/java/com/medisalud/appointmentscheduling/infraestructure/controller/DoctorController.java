@@ -3,6 +3,7 @@ package com.medisalud.appointmentscheduling.infraestructure.controller;
 import com.medisalud.appointmentscheduling.application.dto.DoctorRequest;
 import com.medisalud.appointmentscheduling.application.dto.DoctorResponse;
 import com.medisalud.appointmentscheduling.application.usecase.RegisterDoctorUseCase;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public ResponseEntity<DoctorResponse> registerDoctor(@RequestBody DoctorRequest request) {
+    public ResponseEntity<DoctorResponse> registerDoctor(@Valid @RequestBody DoctorRequest request) {
         DoctorResponse response = registerDoctorUseCase.registerDoctor(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
