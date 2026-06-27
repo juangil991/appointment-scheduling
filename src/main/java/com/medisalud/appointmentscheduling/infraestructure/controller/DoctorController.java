@@ -1,9 +1,8 @@
 package com.medisalud.appointmentscheduling.infraestructure.controller;
 
-import com.medisalud.appointmentscheduling.aplication.dto.DoctorRequest;
-import com.medisalud.appointmentscheduling.aplication.dto.DoctorResponse;
-import com.medisalud.appointmentscheduling.aplication.usecase.RegisterDoctorUseCase;
-import com.medisalud.appointmentscheduling.domain.model.Doctor;
+import com.medisalud.appointmentscheduling.application.dto.DoctorRequest;
+import com.medisalud.appointmentscheduling.application.dto.DoctorResponse;
+import com.medisalud.appointmentscheduling.application.usecase.RegisterDoctorUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

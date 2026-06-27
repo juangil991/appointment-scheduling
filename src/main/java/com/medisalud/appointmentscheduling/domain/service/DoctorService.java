@@ -15,6 +15,7 @@ public class DoctorService {
     }
 
     public Doctor registerDoctor(Doctor doctor) {
+        validateDoctor.validateDoctor(doctor);
         return doctorRepository.save(doctor);
     }
 

@@ -1,7 +1,7 @@
-package com.medisalud.appointmentscheduling.aplication.mapper;
+package com.medisalud.appointmentscheduling.application.mapper;
 
-import com.medisalud.appointmentscheduling.aplication.dto.DoctorRequest;
-import com.medisalud.appointmentscheduling.aplication.dto.DoctorResponse;
+import com.medisalud.appointmentscheduling.application.dto.DoctorRequest;
+import com.medisalud.appointmentscheduling.application.dto.DoctorResponse;
 import com.medisalud.appointmentscheduling.domain.model.Doctor;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +25,7 @@ public class DoctorMapper {
                 doctor.name(),
                 doctor.specialty(),
                 doctor.phoneNumber(),
-                doctor.email());
+                doctor.email(),
+                null);
     }
 }

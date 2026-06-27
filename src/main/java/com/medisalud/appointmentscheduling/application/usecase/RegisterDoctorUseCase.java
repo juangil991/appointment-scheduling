@@ -1,8 +1,8 @@
-package com.medisalud.appointmentscheduling.aplication.usecase;
+package com.medisalud.appointmentscheduling.application.usecase;
 
-import com.medisalud.appointmentscheduling.aplication.dto.DoctorRequest;
-import com.medisalud.appointmentscheduling.aplication.dto.DoctorResponse;
-import com.medisalud.appointmentscheduling.aplication.mapper.DoctorMapper;
+import com.medisalud.appointmentscheduling.application.dto.DoctorRequest;
+import com.medisalud.appointmentscheduling.application.dto.DoctorResponse;
+import com.medisalud.appointmentscheduling.application.mapper.DoctorMapper;
 import com.medisalud.appointmentscheduling.domain.model.Doctor;
 import com.medisalud.appointmentscheduling.domain.service.DoctorService;
 import org.springframework.stereotype.Component;
