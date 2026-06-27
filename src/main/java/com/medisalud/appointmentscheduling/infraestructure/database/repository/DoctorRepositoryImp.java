@@ -19,7 +19,7 @@ public class DoctorRepositoryImp implements DoctorRepository {
 
     @Override
     public Doctor save(Doctor doctor) {
-        var doctorEntity = mapper.toEntity(doctor);
+        DoctorEntity doctorEntity = mapper.toEntity(doctor);
         return mapper.toDomain(jpaRepository.save(doctorEntity));
     }
 }

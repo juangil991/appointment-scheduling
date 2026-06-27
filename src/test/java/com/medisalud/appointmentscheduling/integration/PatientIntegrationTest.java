@@ -37,7 +37,7 @@ public class PatientIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.Id").exists())
                 .andExpect(jsonPath("$.Nombre").value("Louise"))
-                .andExpect(jsonPath("$.Documento de identidad").value("1152115211"))
+                .andExpect(jsonPath("$.Identificación").value("1152115211"))
                 .andExpect(jsonPath("$.Teléfono").value("5551001"))
                 .andExpect(jsonPath("$.Email").value("lu.valencia@email.com"));
     }
@@ -116,7 +116,7 @@ public class PatientIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new RegisterPatientTest("Louise", "12345678","123", "lu.valencia@email.com"))))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("El teléfono debe tener minimo 7 dígitos.")));
+                .andExpect(jsonPath("$.Mensaje", is("El número de teléfono debe de tener minimo 7 digitos")));
 
     }
 
