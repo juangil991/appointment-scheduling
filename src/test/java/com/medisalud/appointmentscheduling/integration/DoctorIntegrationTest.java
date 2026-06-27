@@ -29,11 +29,11 @@ public class DoctorIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("RF-01 Happy Path: Debe permitir registrar un doctor correctamente")
+    @DisplayName("RF-01 Debe permitir registrar un doctor correctamente")
     void registerDoctorSuccess() throws Exception {
-        mvc.perform(post("api/v1/doctors")
+        mvc.perform(post("/api/v1/doctors")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(new RegisterDoctorTest(1,"Dra. María González", "Cardiología","555-1001", "maria.gonzalez@medisalud.com"))))
+                .content(objectMapper.writeValueAsString(new RegisterDoctorTest("Dra. María González", "Cardiología","555-1001", "maria.gonzalez@medisalud.com"))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").value("Dra. María González"))

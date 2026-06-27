@@ -14,8 +14,8 @@ public class DoctorService {
         this.validateDoctor = validateDoctor;
     }
 
-    public Doctor registerDoctor(String name, String specialty, String phoneNumber, String email) {
-        return doctorRepository.save(new Doctor(name, specialty, phoneNumber, email));
+    public Doctor registerDoctor(Doctor doctor) {
+        return doctorRepository.save(doctor);
     }
 
 
