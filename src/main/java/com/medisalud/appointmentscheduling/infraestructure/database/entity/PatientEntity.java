@@ -24,6 +24,9 @@ public class PatientEntity {
     @Column(length = 100)
     private String email;
 
+    public PatientEntity() {
+    }
+
     public PatientEntity(String name, String identificationNumber, String phone, String email) {
         this.name = name;
         this.identificationNumber = identificationNumber;

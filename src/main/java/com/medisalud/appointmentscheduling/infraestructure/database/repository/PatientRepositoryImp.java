@@ -6,6 +6,8 @@ import com.medisalud.appointmentscheduling.infraestructure.database.entity.Patie
 import com.medisalud.appointmentscheduling.infraestructure.mapper.PatientPersistenceMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class PatientRepositoryImp implements PatientRepository {
     private final PatientEntityRepository repository;
@@ -21,5 +23,11 @@ public class PatientRepositoryImp implements PatientRepository {
         PatientEntity patientEntity = mapper.toEntity(patient);
         PatientEntity savedEntity = repository.save(patientEntity);
         return mapper.toDomain(savedEntity);
+    }
+
+    @Override
+    public Optional<Patient> findByIdentificationNumber(String id) {
+        Optional<PatientEntity> patientEntity = repository.findByIdentificationNumber(id);
+        return patientEntity.map(mapper::toDomain);
     }
 }

@@ -5,6 +5,7 @@ import com.medisalud.appointmentscheduling.application.dto.DoctorResponse;
 import com.medisalud.appointmentscheduling.application.mapper.DoctorMapper;
 import com.medisalud.appointmentscheduling.domain.model.Doctor;
 import com.medisalud.appointmentscheduling.domain.service.DoctorService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,6 +19,7 @@ public class RegisterDoctorUseCase {
         this.doctorMapper = doctorMapper;
     }
 
+    @Transactional
     public DoctorResponse registerDoctor(DoctorRequest request) {
         Doctor doctor = doctorMapper.toDomain(request);
         return doctorMapper.toResponse(doctorService.registerDoctor(doctor));

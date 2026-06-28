@@ -6,6 +6,9 @@ import com.medisalud.appointmentscheduling.infraestructure.database.entity.Docto
 import com.medisalud.appointmentscheduling.infraestructure.mapper.DoctorPersistenceMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public class DoctorRepositoryImp implements DoctorRepository {
 
@@ -21,5 +24,11 @@ public class DoctorRepositoryImp implements DoctorRepository {
     public Doctor save(Doctor doctor) {
         DoctorEntity doctorEntity = mapper.toEntity(doctor);
         return mapper.toDomain(jpaRepository.save(doctorEntity));
+    }
+
+    @Override
+    public Optional<Doctor> findById(UUID id) {
+        Optional<DoctorEntity> doctorEntity = jpaRepository.findById(id);
+        return doctorEntity.map(mapper::toDomain);
     }
 }

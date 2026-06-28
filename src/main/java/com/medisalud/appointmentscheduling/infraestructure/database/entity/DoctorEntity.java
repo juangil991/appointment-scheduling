@@ -23,6 +23,9 @@ public class DoctorEntity {
     @Column(length = 100)
     private String email;
 
+    public DoctorEntity() {
+    }
+
     public DoctorEntity(String name, String specialty, String phone, String email) {
         this.name = name;
         this.specialty = specialty;

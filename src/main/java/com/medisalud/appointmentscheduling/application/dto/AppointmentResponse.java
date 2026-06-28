@@ -1,0 +1,23 @@
+package com.medisalud.appointmentscheduling.application.dto;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public record AppointmentResponse(
+        @JsonProperty("Id")
+        UUID id,
+        @JsonProperty("Paciente")
+        String patient,
+        @JsonProperty("Médico")
+        String Doctor,
+        @JsonProperty("Fecha")
+        LocalDateTime appointmentDate,
+        @JsonProperty("Estado")
+        String status,
+        @JsonProperty("Mensaje")
+        String message) {
+}
