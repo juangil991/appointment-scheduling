@@ -66,4 +66,8 @@ public class AppointmentEntity {
     public LocalDateTime getCancellationDate() {
         return cancellationDate;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

@@ -1,9 +1,7 @@
 package com.medisalud.appointmentscheduling.infraestructure.controller;
 
-import com.medisalud.appointmentscheduling.application.dto.AppointmentRequest;
-import com.medisalud.appointmentscheduling.application.dto.AppointmentResponse;
-import com.medisalud.appointmentscheduling.application.dto.AppointmentScheduleRequest;
-import com.medisalud.appointmentscheduling.application.dto.AppointmentScheduleResponse;
+import com.medisalud.appointmentscheduling.application.dto.*;
+import com.medisalud.appointmentscheduling.application.usecase.CancelAppointmentUseCase;
 import com.medisalud.appointmentscheduling.application.usecase.CheckAppointmentScheduleUseCase;
 import com.medisalud.appointmentscheduling.application.usecase.ReserveAppointmentUseCase;
 import jakarta.validation.Valid;
@@ -22,10 +20,12 @@ public class AppointmentController {
 
     private final ReserveAppointmentUseCase reserveAppointmentUseCase;
     private final CheckAppointmentScheduleUseCase checkAppointmentScheduleUseCase;
+    private final CancelAppointmentUseCase appointmentUseCase;
 
-    public AppointmentController(ReserveAppointmentUseCase reserveAppointmentUseCase, CheckAppointmentScheduleUseCase checkAppointmentScheduleUseCase) {
+    public AppointmentController(ReserveAppointmentUseCase reserveAppointmentUseCase, CheckAppointmentScheduleUseCase checkAppointmentScheduleUseCase, CancelAppointmentUseCase appointmentUseCase) {
         this.reserveAppointmentUseCase = reserveAppointmentUseCase;
         this.checkAppointmentScheduleUseCase = checkAppointmentScheduleUseCase;
+        this.appointmentUseCase = appointmentUseCase;
     }
 
     @PostMapping
@@ -42,5 +42,11 @@ public class AppointmentController {
         List<AppointmentScheduleResponse> response = checkAppointmentScheduleUseCase.checkAvailableAppointmentSchedule(doctorId,startDate,endDate);
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
+    }
+
+    @PutMapping("/cancel")
+    public ResponseEntity<AppointmentResponse> cancelAppointment(@RequestBody @Valid AppointmentCancelRequest request) {
+        AppointmentResponse response = appointmentUseCase.cancelAppointment(request);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

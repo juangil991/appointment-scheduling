@@ -10,6 +10,10 @@ public interface AppointmentRepository {
 
     Appointment save(Appointment appointment);
 
+    void update(Appointment appointment);
+
+    Appointment findById(UUID appointmentId);
+
     List<Appointment> findByDoctorAndDateRange(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate);
 
 }

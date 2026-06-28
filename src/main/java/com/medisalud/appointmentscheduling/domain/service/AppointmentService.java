@@ -19,6 +19,13 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
+    public Appointment cancelAppointment(UUID appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId);
+        Appointment caceledAppointment = appointment.withStatus("CANCELADA");
+        appointmentRepository.update(caceledAppointment);
+        return caceledAppointment;
+    }
+
     public List<Appointment> findAppointmentByDoctorIdAndDateRange(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate) {
         return appointmentRepository.findByDoctorAndDateRange(doctorId, startDate, endDate);
     }

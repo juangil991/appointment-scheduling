@@ -35,6 +35,16 @@ public class AppointmentRepositoryImp  implements AppointmentRepository {
         return mapper.toDomain(appointmentRepository.save(appointmentEntity));
     }
 
+    @Override
+    public void update(Appointment appointment) {
+        AppointmentEntity appointmentEntity = appointmentRepository.getReferenceById(appointment.id());
+        appointmentEntity.setStatus(appointment.status());
+    }
+
+    @Override
+    public Appointment findById(UUID appointmentId) {
+        return mapper.toDomain(appointmentRepository.findById(appointmentId).orElse(null));
+    }
 
     @Override
     public List<Appointment> findByDoctorAndDateRange(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate) {
