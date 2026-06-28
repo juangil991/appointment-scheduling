@@ -7,6 +7,7 @@ import com.medisalud.appointmentscheduling.domain.service.AppointmentService;
 import com.medisalud.appointmentscheduling.domain.service.DoctorService;
 import com.medisalud.appointmentscheduling.domain.service.PatientService;
 import com.medisalud.appointmentscheduling.domain.service.SchedulingService;
+import com.medisalud.appointmentscheduling.domain.validator.AppointmentValidation;
 import com.medisalud.appointmentscheduling.domain.validator.ValidateDoctor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +31,13 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AppointmentService appointmentService(AppointmentRepository appointmentRepository){
-        return new AppointmentService(appointmentRepository);
+    public AppointmentValidation appointmentValidation(){
+        return new AppointmentValidation();
+    }
+
+    @Bean
+    public AppointmentService appointmentService(AppointmentRepository appointmentRepository, AppointmentValidation appointmentValidation){
+        return new AppointmentService(appointmentRepository, appointmentValidation);
     }
 
     @Bean

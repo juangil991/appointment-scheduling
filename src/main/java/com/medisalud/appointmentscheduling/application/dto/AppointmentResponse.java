@@ -20,4 +20,8 @@ public record AppointmentResponse(
         String status,
         @JsonProperty("Mensaje")
         String message) {
+
+        public AppointmentResponse(String message) {
+                this(null, null, null, null, null, message);
+        }
 }
