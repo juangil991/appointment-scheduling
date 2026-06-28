@@ -1,11 +1,14 @@
 package com.medisalud.appointmentscheduling.infraestructure.database.repository;
 
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
+import com.medisalud.appointmentscheduling.domain.model.AppointmentFilter;
 import com.medisalud.appointmentscheduling.domain.repository.AppointmentRepository;
 import com.medisalud.appointmentscheduling.infraestructure.database.entity.AppointmentEntity;
 import com.medisalud.appointmentscheduling.infraestructure.database.entity.DoctorEntity;
 import com.medisalud.appointmentscheduling.infraestructure.database.entity.PatientEntity;
+import com.medisalud.appointmentscheduling.infraestructure.database.specification.AppointmentSpecification;
 import com.medisalud.appointmentscheduling.infraestructure.mapper.AppointmentPersistenceMapper;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -50,5 +53,12 @@ public class AppointmentRepositoryImp  implements AppointmentRepository {
     public List<Appointment> findByDoctorAndDateRange(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate) {
         List<AppointmentEntity> appointmentEntity = appointmentRepository.findByDoctorIdAndAppointmentDateBetween(doctorId,startDate,endDate);
         return appointmentEntity.stream().map(mapper::toDomain).toList();
+    }
+
+    @Override
+    public List<Appointment> findByFilter(AppointmentFilter filter) {
+        Specification<AppointmentEntity> specification = AppointmentSpecification.byFilter(filter);
+        List<AppointmentEntity> appointmentEntities = appointmentRepository.findAll(specification);
+        return appointmentEntities.stream().map(mapper::toDomain).toList();
     }
 }

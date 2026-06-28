@@ -1,6 +1,7 @@
 package com.medisalud.appointmentscheduling.domain.repository;
 
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
+import com.medisalud.appointmentscheduling.domain.model.AppointmentFilter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,4 +17,5 @@ public interface AppointmentRepository {
 
     List<Appointment> findByDoctorAndDateRange(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate);
 
+    List<Appointment> findByFilter(AppointmentFilter filter);
 }
