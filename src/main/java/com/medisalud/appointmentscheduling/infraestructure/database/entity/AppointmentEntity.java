@@ -32,6 +32,9 @@ public class AppointmentEntity {
     @Column(name = "cancellation_date")
     private LocalDateTime cancellationDate;
 
+    public AppointmentEntity() {
+    }
+
     public AppointmentEntity(DoctorEntity doctor, PatientEntity patient, LocalDateTime appointmentDate, String status, LocalDateTime cancellationDate) {
         this.doctor = doctor;
         this.patient = patient;

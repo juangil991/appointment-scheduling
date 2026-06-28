@@ -9,6 +9,7 @@ import com.medisalud.appointmentscheduling.domain.model.Patient;
 import com.medisalud.appointmentscheduling.domain.service.AppointmentService;
 import com.medisalud.appointmentscheduling.domain.service.DoctorService;
 import com.medisalud.appointmentscheduling.domain.service.PatientService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class ReserveAppointmentUseCase {
         this.mapper = mapper;
     }
 
+    @Transactional
     public AppointmentResponse reserveAppointment(AppointmentRequest request) {
         Doctor doctor = doctorService.getDoctorById(request.doctorId());
         Patient patient = patientService.getPatientByIdentificationNumber(request.patientIdentification());

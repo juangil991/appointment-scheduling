@@ -8,6 +8,10 @@ import com.medisalud.appointmentscheduling.infraestructure.database.entity.Patie
 import com.medisalud.appointmentscheduling.infraestructure.mapper.AppointmentPersistenceMapper;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
 @Repository
 public class AppointmentRepositoryImp  implements AppointmentRepository {
 
@@ -29,5 +33,12 @@ public class AppointmentRepositoryImp  implements AppointmentRepository {
         PatientEntity patient = patientRepository.getReferenceById(appointment.patient().id());
         AppointmentEntity appointmentEntity = mapper.toEntity(appointment,doctorEntity,patient);
         return mapper.toDomain(appointmentRepository.save(appointmentEntity));
+    }
+
+
+    @Override
+    public List<Appointment> findByDoctorAndDateRange(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate) {
+        List<AppointmentEntity> appointmentEntity = appointmentRepository.findByDoctorIdAndAppointmentDateBetween(doctorId,startDate,endDate);
+        return appointmentEntity.stream().map(mapper::toDomain).toList();
     }
 }
