@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    name: Build with Java 25
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
