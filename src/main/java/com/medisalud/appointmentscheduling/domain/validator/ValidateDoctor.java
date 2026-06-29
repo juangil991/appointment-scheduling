@@ -9,11 +9,9 @@ import java.util.Optional;
 
 public class ValidateDoctor {
 
-
     public void validateDoctor(Doctor doctor){
         validateSpecialty(doctor.specialty());
     }
-
 
     protected void validateSpecialty(String specialty){
         Optional<Specialty> doctorSpecialty = Arrays.stream(Specialty.values())

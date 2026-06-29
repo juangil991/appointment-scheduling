@@ -31,8 +31,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AppointmentValidation appointmentValidation(){
-        return new AppointmentValidation();
+    public AppointmentValidation appointmentValidation(AppointmentRepository repository){
+        return new AppointmentValidation(repository);
     }
 
     @Bean

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+
 public record PatientRequest(
         @NotBlank(message = "El nombre es obligatorio.")
         @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
@@ -21,5 +23,6 @@ public record PatientRequest(
 
         @NotBlank(message = "El email es obligatorio.")
         @Email(message = "Formato de email invalido")
-        String email) {
-}
+        String email,
+
+        LocalDate birthDay) {}

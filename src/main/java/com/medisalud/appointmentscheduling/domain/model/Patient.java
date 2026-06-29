@@ -1,5 +1,6 @@
 package com.medisalud.appointmentscheduling.domain.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public record Patient(
@@ -7,4 +8,5 @@ public record Patient(
         String name,
         String identificationNumber,
         String phoneNumber,
-        String email) { }
+        String email,
+        LocalDate birthDay ) { }

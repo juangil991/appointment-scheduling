@@ -1,6 +1,5 @@
 package com.medisalud.appointmentscheduling.domain.service;
 
-import com.medisalud.appointmentscheduling.domain.constants.WorkingHours;
 import com.medisalud.appointmentscheduling.domain.model.ApointmentSchedule;
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
 import com.medisalud.appointmentscheduling.domain.repository.AppointmentRepository;
@@ -14,7 +13,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class SchedulingService {
-
 
     private final AppointmentRepository appointmentRepository;
 

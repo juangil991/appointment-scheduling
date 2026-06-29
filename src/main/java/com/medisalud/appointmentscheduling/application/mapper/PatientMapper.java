@@ -17,7 +17,8 @@ public class PatientMapper {
                 request.name(),
                 request.identificationNumber(),
                 request.phoneNumber(),
-                request.email());
+                request.email(),
+                request.birthDay());
     }
 
     public PatientResponse toResponse(Patient patient) {
@@ -28,6 +29,7 @@ public class PatientMapper {
                 patient.identificationNumber(),
                 patient.phoneNumber(),
                 patient.email(),
-                null);
+                null,
+                patient.birthDay());
     }
 }

@@ -12,7 +12,8 @@ public class PatientPersistenceMapper {
                 patient.name(),
                 patient.identificationNumber(),
                 patient.phoneNumber(),
-                patient.email());
+                patient.email(),
+                patient.birthDay());
     }
 
     public Patient toDomain(PatientEntity entity) {
@@ -22,6 +23,7 @@ public class PatientPersistenceMapper {
                 entity.getName(),
                 entity.getIdentificationNumber(),
                 entity.getPhone(),
-                entity.getEmail());
+                entity.getEmail(),
+                entity.getBirthDay());
     }
 }

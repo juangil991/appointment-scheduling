@@ -2,6 +2,7 @@ package com.medisalud.appointmentscheduling.infraestructure.database.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -24,14 +25,19 @@ public class PatientEntity {
     @Column(length = 100)
     private String email;
 
+    @Column(nullable = true)
+    private LocalDate birthDay;
+
     public PatientEntity() {
     }
 
-    public PatientEntity(String name, String identificationNumber, String phone, String email) {
+
+    public PatientEntity(String name, String identificationNumber, String phone, String email, LocalDate birthDay) {
         this.name = name;
         this.identificationNumber = identificationNumber;
         this.phone = phone;
         this.email = email;
+        this.birthDay = birthDay;
     }
 
     public UUID getId() {
@@ -52,6 +58,10 @@ public class PatientEntity {
 
     public String getEmail() {
         return email;
+    }
+
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 }
 
