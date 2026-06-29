@@ -1,7 +1,6 @@
 package com.medisalud.appointmentscheduling.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medisalud.appointmentscheduling.application.dto.AppointmentScheduleResponse;
 import com.medisalud.appointmentscheduling.domain.constants.ErrorMessages;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
@@ -44,42 +43,42 @@ public class AppointmentScheduleIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$[0].date").value("2026-06-26"))
-                .andExpect(jsonPath("$[0].timeSlots[0]").value("08:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[1]").value("08:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[2]").value("09:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[3]").value("09:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[4]").value("10:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[5]").value("10:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[6]").value("11:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[7]").value("11:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[8]").value("12:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[9]").value("12:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[10]").value("13:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[11]").value("13:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[12]").value("14:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[13]").value("14:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[14]").value("15:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[15]").value("15:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[16]").value("16:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[17]").value("16:30:00"))
-                .andExpect(jsonPath("$[0].timeSlots[18]").value("17:00:00"))
-                .andExpect(jsonPath("$[0].timeSlots[19]").value("17:30:00"))
+                .andExpect(jsonPath("$[0].Fecha").value("2026-06-26"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[0]").value("08:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[1]").value("08:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[2]").value("09:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[3]").value("09:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[4]").value("10:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[5]").value("10:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[6]").value("11:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[7]").value("11:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[8]").value("12:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[9]").value("12:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[10]").value("13:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[11]").value("13:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[12]").value("14:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[13]").value("14:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[14]").value("15:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[15]").value("15:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[16]").value("16:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[17]").value("16:30:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[18]").value("17:00:00"))
+                .andExpect(jsonPath("$[0].HorariosDisponibles[19]").value("17:30:00"))
 
 
-                .andExpect(jsonPath("$[1].date").value("2026-06-27"))
-                .andExpect(jsonPath("$[1].timeSlots[0]").value("08:00:00"))
-                .andExpect(jsonPath("$[1].timeSlots[1]").value("08:30:00"))
-                .andExpect(jsonPath("$[1].timeSlots[2]").value("09:00:00"))
-                .andExpect(jsonPath("$[1].timeSlots[3]").value("09:30:00"))
-                .andExpect(jsonPath("$[1].timeSlots[4]").value("10:00:00"))
-                .andExpect(jsonPath("$[1].timeSlots[5]").value("10:30:00"))
-                .andExpect(jsonPath("$[1].timeSlots[6]").value("11:00:00"))
-                .andExpect(jsonPath("$[1].timeSlots[7]").value("11:30:00"))
-                .andExpect(jsonPath("$[1].timeSlots[8]").value("12:00:00"))
+                .andExpect(jsonPath("$[1].Fecha").value("2026-06-27"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[0]").value("08:00:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[1]").value("08:30:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[2]").value("09:00:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[3]").value("09:30:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[4]").value("10:00:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[5]").value("10:30:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[6]").value("11:00:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[7]").value("11:30:00"))
+                .andExpect(jsonPath("$[1].HorariosDisponibles[8]").value("12:00:00"))
 
-                .andExpect(jsonPath("$[2].date").value("2026-06-28"))
-                .andExpect(jsonPath("$[2].timeSlots").isEmpty());
+                .andExpect(jsonPath("$[2].Fecha").value("2026-06-28"))
+                .andExpect(jsonPath("$[2].HorariosDisponibles").isEmpty());
     }
 
     @Test

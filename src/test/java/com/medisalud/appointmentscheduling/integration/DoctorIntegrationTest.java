@@ -62,7 +62,7 @@ public class DoctorIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new RegisterDoctorTest(null, "EspecialidadInvalida", "5551002", "maria.gonzalez@medisalud.com"))))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("El nombre es obligatorio.")));
+                .andExpect(jsonPath("$.Mensaje", is(ErrorMessages.NAME_REQUIRED)));
 
     }
 

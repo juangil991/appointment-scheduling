@@ -1,6 +1,7 @@
 package com.medisalud.appointmentscheduling.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.medisalud.appointmentscheduling.domain.constants.ErrorMessages;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ public class PatientIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new RegisterPatientTest(null, "1152115211","5551001", "lu.valencia@email.com"))))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("El nombre es obligatorio.")));
+                .andExpect(jsonPath("$.Mensaje", is(ErrorMessages.NAME_REQUIRED)));
 
     }
 
@@ -94,7 +95,7 @@ public class PatientIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new RegisterPatientTest("Louise", "123456","5551001", "lu.valencia@email.com"))))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("El documento de identidad debe de tener minimo 7 digitos")));
+                .andExpect(jsonPath("$.Mensaje", is(ErrorMessages.DOCUMENT_NUMBER_INVALID)));
 
     }
 

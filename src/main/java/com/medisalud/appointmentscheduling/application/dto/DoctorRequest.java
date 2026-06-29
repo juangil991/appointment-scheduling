@@ -10,15 +10,15 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record DoctorRequest(
-        @NotBlank(message = "El nombre es obligatorio.")
-        @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
-        @Pattern(regexp = "^[A-Za-zÁÉÍÓÚáéíóúÑñ. ]+$", message = "Nombre inválido")
+        @NotBlank(message = ErrorMessages.NAME_REQUIRED)
+        @Size(min = 3, max = 100, message = ErrorMessages.NAME_INVALID)
+        @Pattern(regexp = "^[A-Za-zÁÉÍÓÚáéíóúÑñ. ]+$", message = ErrorMessages.NAME_FORMAT_INVALID)
         String name,
         @NotBlank(message = ErrorMessages.SPECIALTY_REQUIRED)
         String specialty,
         @Pattern(regexp = "^(\\d{7}|\\d{10})$", message = ErrorMessages.PHONE_NUMBER_INVALID)
         String phoneNumber,
-        @Email(message = "Formato de email invalido")
+        @Email(message = ErrorMessages.EMAIL_INVALID)
         String email,
         LocalDate birthDay) {
 }

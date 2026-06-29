@@ -3,6 +3,7 @@ package com.medisalud.appointmentscheduling.application.usecase;
 import com.medisalud.appointmentscheduling.application.dto.AppointmentRequest;
 import com.medisalud.appointmentscheduling.application.dto.AppointmentResponse;
 import com.medisalud.appointmentscheduling.application.mapper.AppointmentMapper;
+import com.medisalud.appointmentscheduling.domain.constants.AppointmentStatus;
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
 import com.medisalud.appointmentscheduling.domain.model.Doctor;
 import com.medisalud.appointmentscheduling.domain.model.Patient;
@@ -34,7 +35,7 @@ public class ReserveAppointmentUseCase {
         Doctor doctor = doctorService.getDoctorById(request.doctorId());
         Patient patient = patientService.getPatientByIdentificationNumber(request.patientIdentification());
         LocalDateTime appointmentDateTime = LocalDateTime.parse(request.appointmentDate());
-        Appointment appointment = new Appointment(null, patient, doctor, appointmentDateTime, "PROGRAMADA", null);
+        Appointment appointment = new Appointment(null, patient, doctor, appointmentDateTime, AppointmentStatus.PROGRAMMED, null);
         return mapper.toResponse(appointmentService.scheduleAppointment(appointment));
     }
 }
