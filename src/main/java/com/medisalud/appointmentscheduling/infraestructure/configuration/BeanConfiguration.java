@@ -3,6 +3,7 @@ package com.medisalud.appointmentscheduling.infraestructure.configuration;
 import com.medisalud.appointmentscheduling.domain.repository.AppointmentRepository;
 import com.medisalud.appointmentscheduling.domain.repository.DoctorRepository;
 import com.medisalud.appointmentscheduling.domain.repository.PatientRepository;
+import com.medisalud.appointmentscheduling.domain.repository.PenaltyRepository;
 import com.medisalud.appointmentscheduling.domain.service.AppointmentService;
 import com.medisalud.appointmentscheduling.domain.service.DoctorService;
 import com.medisalud.appointmentscheduling.domain.service.PatientService;
@@ -31,13 +32,13 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AppointmentValidation appointmentValidation(AppointmentRepository repository){
-        return new AppointmentValidation(repository);
+    public AppointmentValidation appointmentValidation(AppointmentRepository repository, PenaltyRepository penaltyRepository){
+        return new AppointmentValidation(repository, penaltyRepository);
     }
 
     @Bean
-    public AppointmentService appointmentService(AppointmentRepository appointmentRepository, AppointmentValidation appointmentValidation){
-        return new AppointmentService(appointmentRepository, appointmentValidation);
+    public AppointmentService appointmentService(AppointmentRepository appointmentRepository, AppointmentValidation appointmentValidation, PenaltyRepository penaltyRepository){
+        return new AppointmentService(appointmentRepository, appointmentValidation,penaltyRepository);
     }
 
     @Bean

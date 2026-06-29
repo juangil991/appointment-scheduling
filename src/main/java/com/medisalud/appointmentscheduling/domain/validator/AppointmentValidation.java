@@ -4,7 +4,9 @@ import com.medisalud.appointmentscheduling.domain.constants.ErrorMessages;
 import com.medisalud.appointmentscheduling.domain.exception.InvalidAppointmentScheduleException;
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
 import com.medisalud.appointmentscheduling.domain.model.AppointmentFilter;
+import com.medisalud.appointmentscheduling.domain.model.Penalty;
 import com.medisalud.appointmentscheduling.domain.repository.AppointmentRepository;
+import com.medisalud.appointmentscheduling.domain.repository.PenaltyRepository;
 import com.medisalud.appointmentscheduling.domain.util.AppointmentScheduleUtil;
 
 import java.time.LocalDate;
@@ -16,9 +18,11 @@ import java.util.UUID;
 public class AppointmentValidation {
 
     private final AppointmentRepository appointmentRepository;
+    private final PenaltyRepository penaltyRepository;
 
-    public AppointmentValidation(AppointmentRepository appointmentRepository) {
+    public AppointmentValidation(AppointmentRepository appointmentRepository, PenaltyRepository penaltyRepository) {
         this.appointmentRepository = appointmentRepository;
+        this.penaltyRepository = penaltyRepository;
     }
 
     public void validateAppointment(Appointment appointment){
@@ -27,6 +31,10 @@ public class AppointmentValidation {
         validateDuplicatedAppointment(appointment);
         validatePatientAppointment(appointment);
         validateBirthDay(appointment);
+        validatePenalty(appointment);
+    }
+
+    public void validateCancelAppointment(Appointment appointment) {
 
     }
 
@@ -72,5 +80,14 @@ public class AppointmentValidation {
             throw new InvalidAppointmentScheduleException(ErrorMessages.FUTURE_BIRTH_DAY);
         }
 
+    }
+
+    protected void validatePenalty(Appointment appointment) {
+        LocalDateTime startDate = LocalDateTime.now().minusDays(30);
+        LocalDateTime endDate = LocalDateTime.now();
+        List<Penalty> penalty = penaltyRepository.findByPatientAndCreatedAtBetween(appointment.patient().id(), startDate, endDate);
+        if (penalty.size() >= 3) {
+            throw new InvalidAppointmentScheduleException(ErrorMessages.APPOINTMENT_PENALTY);
+        }
     }
 }
