@@ -4,6 +4,7 @@ import com.medisalud.appointmentscheduling.domain.model.ApointmentSchedule;
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
 import com.medisalud.appointmentscheduling.domain.repository.AppointmentRepository;
 import com.medisalud.appointmentscheduling.domain.util.AppointmentScheduleUtil;
+import com.medisalud.appointmentscheduling.domain.validator.SchedulingValidator;
 
 import java.time.*;
 import java.util.ArrayList;
@@ -15,12 +16,15 @@ import java.util.stream.Collectors;
 public class SchedulingService {
 
     private final AppointmentRepository appointmentRepository;
+    private final SchedulingValidator schedulingValidator;
 
-    public SchedulingService(AppointmentRepository appointmentRepository) {
+    public SchedulingService(AppointmentRepository appointmentRepository, SchedulingValidator schedulingValidator) {
         this.appointmentRepository = appointmentRepository;
+        this.schedulingValidator = schedulingValidator;
     }
 
     public List<ApointmentSchedule> getAppointmentSchedule(UUID doctorId, LocalDateTime startDate, LocalDateTime endDate) {
+        schedulingValidator.validateAppointmentSchedule(doctorId, startDate, endDate);
         List<Appointment> appointments = appointmentRepository.findByDoctorAndDateRange(doctorId, startDate, endDate);
         List<LocalDateTime> doctorAppointmentDates = appointments.stream().map(Appointment::appointmentDate).toList();
         List<ApointmentSchedule> doctorAppointmentSchedules = getDoctorAppointmentSchedule(doctorAppointmentDates);
