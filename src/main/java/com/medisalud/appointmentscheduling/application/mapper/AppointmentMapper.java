@@ -14,6 +14,7 @@ public class AppointmentMapper {
                 appointment.patient().name(),
                 appointment.doctor().name(),
                 appointment.appointmentDate(),
+                appointment.cancellationDate(),
                 appointment.status(),
                 null);
     }

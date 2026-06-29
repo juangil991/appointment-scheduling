@@ -1,6 +1,8 @@
 package com.medisalud.appointmentscheduling.domain.validator;
 
 import com.medisalud.appointmentscheduling.domain.constants.ErrorMessages;
+import com.medisalud.appointmentscheduling.domain.exception.AppointmentConflictException;
+import com.medisalud.appointmentscheduling.domain.exception.AppointmentNotFoundException;
 import com.medisalud.appointmentscheduling.domain.exception.InvalidAppointmentScheduleException;
 import com.medisalud.appointmentscheduling.domain.model.Appointment;
 import com.medisalud.appointmentscheduling.domain.model.AppointmentFilter;
@@ -35,7 +37,20 @@ public class AppointmentValidation {
     }
 
     public void validateCancelAppointment(Appointment appointment) {
+        validateAppointmentExist(appointment);
+        validateCanceledAppointment(appointment);
+    }
 
+    public void validateAppointmentExist(Appointment appointment) {
+        if(appointment == null){
+            throw new AppointmentNotFoundException(ErrorMessages.APPOINTMENT_NOT_FOUND);
+        }
+    }
+
+    public void validateCanceledAppointment(Appointment appointment){
+        if (appointment.status().equals("CANCELADA")) {
+            throw new AppointmentConflictException(ErrorMessages.APPOINTMENT_ALREADY_CANCELED);
+        }
     }
 
     protected void validateAppointmentDateNotInPast(LocalDateTime appointmentDate) {

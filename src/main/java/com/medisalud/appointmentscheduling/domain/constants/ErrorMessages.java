@@ -15,4 +15,7 @@ public final class ErrorMessages {
     public static final String DOCTOR_NOT_FOUND = "El doctor no fue encontrado. Por favor, verifique el ID proporcionado.";
     public static final String APPOINTMENT_PENALTY = "No es posible agendar una nueva cita porque el paciente tiene 3 o más penalizaciones registradas en los últimos 30 días. Inténtelo nuevamente cuando haya finalizado el período de restricción.";
     public static final String START_DATE_GREATER_THAN_END_DATE= "El rango de fechas es inválido. La fecha de inicio debe ser anterior o igual a la fecha de fin.";
+    public static final String APPOINTMENT_DATE_REQUIRED= "El identificador de la cita es obligatorio.";
+    public static final String APPOINTMENT_NOT_FOUND= "La cita no fue encontrada. Por favor, verifique el ID proporcionado.";
+    public static final String APPOINTMENT_ALREADY_CANCELED = "La cita ya se encuentra cancelada.";
 }

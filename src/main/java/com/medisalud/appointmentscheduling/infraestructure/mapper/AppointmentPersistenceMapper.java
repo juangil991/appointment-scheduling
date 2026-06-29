@@ -29,12 +29,14 @@ public class AppointmentPersistenceMapper {
     }
 
     public Appointment toDomain(AppointmentEntity entity) {
-
+        if(entity ==null){return null;}
         return new Appointment(
                 entity.getId(),
                 patientMapper.toDomain(entity.getPatient()),
                 doctorMapper.toDomain(entity.getDoctor()),
                 entity.getAppointmentDate(),
-                entity.getStatus());
+                entity.getStatus(),
+                entity.getCancellationDate());
     }
+
 }

@@ -16,12 +16,14 @@ public record AppointmentResponse(
         String Doctor,
         @JsonProperty("Fecha")
         LocalDateTime appointmentDate,
+        @JsonProperty("Fecha de cancelación")
+        LocalDateTime cancellationDate,
         @JsonProperty("Estado")
         String status,
         @JsonProperty("Mensaje")
         String message) {
 
         public AppointmentResponse(String message) {
-                this(null, null, null, null, null, message);
+                this(null, null, null, null, null, null,message);
         }
 }

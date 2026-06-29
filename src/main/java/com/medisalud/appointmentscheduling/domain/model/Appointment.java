@@ -3,15 +3,16 @@ package com.medisalud.appointmentscheduling.domain.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record Appointment(UUID id, Patient patient, Doctor doctor, LocalDateTime appointmentDate, String status) {
+public record Appointment(UUID id, Patient patient, Doctor doctor, LocalDateTime appointmentDate, String status, LocalDateTime cancellationDate) {
 
-    public Appointment withStatus(String status) {
+    public Appointment withStatusAndDate(String status, LocalDateTime cancellationDate) {
         return new Appointment(
                 id,
                 patient,
                 doctor,
                 appointmentDate,
-                status
+                status,
+                cancellationDate
         );
     }
 
@@ -21,7 +22,8 @@ public record Appointment(UUID id, Patient patient, Doctor doctor, LocalDateTime
                 patient,
                 doctor,
                 newDate,
-                status
+                status,
+                cancellationDate
         );
     }
 }

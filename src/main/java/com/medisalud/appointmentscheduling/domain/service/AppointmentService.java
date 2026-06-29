@@ -29,7 +29,8 @@ public class AppointmentService {
 
     public Appointment cancelAppointment(UUID appointmentId) {
         Appointment appointment = appointmentRepository.findById(appointmentId);
-        Appointment caceledAppointment = appointment.withStatus("CANCELADA");
+        appointmentValidation.validateCancelAppointment(appointment);
+        Appointment caceledAppointment = appointment.withStatusAndDate("CANCELADA", LocalDateTime.now());
         createPenalty(caceledAppointment);
         appointmentRepository.update(caceledAppointment);
         return caceledAppointment;

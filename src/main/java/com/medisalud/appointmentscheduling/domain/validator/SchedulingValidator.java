@@ -1,7 +1,7 @@
 package com.medisalud.appointmentscheduling.domain.validator;
 
 import com.medisalud.appointmentscheduling.domain.constants.ErrorMessages;
-import com.medisalud.appointmentscheduling.domain.exception.DoctorNotFoundException;
+import com.medisalud.appointmentscheduling.domain.exception.AppointmentNotFoundException;
 import com.medisalud.appointmentscheduling.domain.exception.InvalidAppointmentScheduleException;
 import com.medisalud.appointmentscheduling.domain.repository.DoctorRepository;
 
@@ -29,7 +29,7 @@ public class SchedulingValidator {
 
     public void validateDoctorExists(UUID doctorId) {
         if (doctorRepository.findById(doctorId).isEmpty()) {
-            throw new DoctorNotFoundException(ErrorMessages.DOCTOR_NOT_FOUND);
+            throw new AppointmentNotFoundException(ErrorMessages.DOCTOR_NOT_FOUND);
         }
     }
 

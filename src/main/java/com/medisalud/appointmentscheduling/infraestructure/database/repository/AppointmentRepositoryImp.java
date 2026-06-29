@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -42,6 +43,7 @@ public class AppointmentRepositoryImp  implements AppointmentRepository {
     public void update(Appointment appointment) {
         AppointmentEntity appointmentEntity = appointmentRepository.getReferenceById(appointment.id());
         appointmentEntity.setStatus(appointment.status());
+        appointmentEntity.setCancellationDate(LocalDateTime.now());
     }
 
     @Override

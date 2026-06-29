@@ -70,4 +70,8 @@ public class AppointmentEntity {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public void setCancellationDate(LocalDateTime cancellationDate) {
+        this.cancellationDate = cancellationDate;
+    }
 }

@@ -34,7 +34,7 @@ public class ReserveAppointmentUseCase {
         Doctor doctor = doctorService.getDoctorById(request.doctorId());
         Patient patient = patientService.getPatientByIdentificationNumber(request.patientIdentification());
         LocalDateTime appointmentDateTime = LocalDateTime.parse(request.appointmentDate());
-        Appointment appointment = new Appointment(null, patient, doctor, appointmentDateTime, "PROGRAMADA");
+        Appointment appointment = new Appointment(null, patient, doctor, appointmentDateTime, "PROGRAMADA", null);
         return mapper.toResponse(appointmentService.scheduleAppointment(appointment));
     }
 }
