@@ -2,6 +2,7 @@ package com.medisalud.appointmentscheduling.integration;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.medisalud.appointmentscheduling.domain.constants.ErrorMessages;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -107,7 +108,7 @@ public class DoctorIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new RegisterDoctorTest("Dr. Juan Pérez", null, "5551002", "maria.gonzalez@medisalud.com"))))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("La especialidad es obligatoria")));
+                .andExpect(jsonPath("$.Mensaje", is(ErrorMessages.SPECIALTY_REQUIRED)));
 
     }
 
@@ -131,9 +132,9 @@ public class DoctorIntegrationTest {
     void registerDoctorShouldThrowExceptionForInvalidPhoneNumber() throws Exception {
         mvc.perform(post("/api/v1/doctors")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(new RegisterDoctorTest("Dr. Juan Pérez", null, "55510020", "maria.gonzalez@medisalud.com"))))
+                        .content(objectMapper.writeValueAsString(new RegisterDoctorTest("Dr. Juan Pérez", "Cardiología", "55510020", "maria.gonzalez@medisalud.com"))))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("El teléfono debe contener exactamente 7 o 10 dígitos.")));
+                .andExpect(jsonPath("$.Mensaje", is(ErrorMessages.PHONE_NUMBER_INVALID)));
 
     }
 

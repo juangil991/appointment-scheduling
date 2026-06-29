@@ -89,7 +89,7 @@ public class AppointmentScheduleIntegrationTest {
                         .param("startDate", "2027-06-26T00:00:00")
                         .param("endDate", "2026-06-28T23:59:59"))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.Mensaje", is("Required request parameter 'startDate' for method parameter type LocalDateTime is not present")));
+                .andExpect(jsonPath("$.Mensaje", is(ErrorMessages.START_DATE_GREATER_THAN_END_DATE)));
     }
 
     @Test

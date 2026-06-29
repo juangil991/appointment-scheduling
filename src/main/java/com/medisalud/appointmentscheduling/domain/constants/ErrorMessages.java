@@ -18,4 +18,6 @@ public final class ErrorMessages {
     public static final String APPOINTMENT_DATE_REQUIRED= "El identificador de la cita es obligatorio.";
     public static final String APPOINTMENT_NOT_FOUND= "La cita no fue encontrada. Por favor, verifique el ID proporcionado.";
     public static final String APPOINTMENT_ALREADY_CANCELED = "La cita ya se encuentra cancelada.";
+    public static final String SPECIALTY_REQUIRED = "La especialidad es obligatoria";
+    public static final String PHONE_NUMBER_INVALID = "El teléfono debe contener exactamente 7 o 10 dígitos.";
 }
