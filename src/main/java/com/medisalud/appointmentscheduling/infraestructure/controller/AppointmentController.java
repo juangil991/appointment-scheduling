@@ -1,10 +1,7 @@
 package com.medisalud.appointmentscheduling.infraestructure.controller;
 
 import com.medisalud.appointmentscheduling.application.dto.*;
-import com.medisalud.appointmentscheduling.application.usecase.CancelAppointmentUseCase;
-import com.medisalud.appointmentscheduling.application.usecase.CheckAppointmentScheduleUseCase;
-import com.medisalud.appointmentscheduling.application.usecase.ListAppointmentUseCase;
-import com.medisalud.appointmentscheduling.application.usecase.ReserveAppointmentUseCase;
+import com.medisalud.appointmentscheduling.application.usecase.*;
 import com.medisalud.appointmentscheduling.domain.model.AppointmentFilter;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,12 +21,14 @@ public class AppointmentController {
     private final CheckAppointmentScheduleUseCase checkAppointmentScheduleUseCase;
     private final CancelAppointmentUseCase appointmentUseCase;
     private final ListAppointmentUseCase listAppointmentUseCase;
+    private final RescheduleAppointmentUseCase rescheduleAppointmentUseCase;
 
-    public AppointmentController(ReserveAppointmentUseCase reserveAppointmentUseCase, CheckAppointmentScheduleUseCase checkAppointmentScheduleUseCase, CancelAppointmentUseCase appointmentUseCase, ListAppointmentUseCase listAppointmentUseCase) {
+    public AppointmentController(ReserveAppointmentUseCase reserveAppointmentUseCase, CheckAppointmentScheduleUseCase checkAppointmentScheduleUseCase, CancelAppointmentUseCase appointmentUseCase, ListAppointmentUseCase listAppointmentUseCase, RescheduleAppointmentUseCase rescheduleAppointmentUseCase) {
         this.reserveAppointmentUseCase = reserveAppointmentUseCase;
         this.checkAppointmentScheduleUseCase = checkAppointmentScheduleUseCase;
         this.appointmentUseCase = appointmentUseCase;
         this.listAppointmentUseCase = listAppointmentUseCase;
+        this.rescheduleAppointmentUseCase = rescheduleAppointmentUseCase;
     }
 
     @PostMapping
@@ -48,7 +47,7 @@ public class AppointmentController {
 
     }
 
-    @PutMapping("/cancel")
+    @PatchMapping("/cancel")
     public ResponseEntity<AppointmentResponse> cancelAppointment(@RequestBody @Valid AppointmentCancelRequest request) {
         AppointmentResponse response = appointmentUseCase.cancelAppointment(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -62,6 +61,12 @@ public class AppointmentController {
                                                                       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate){
         AppointmentFilter filter = new AppointmentFilter(doctorId, patientId, status, startDate, endDate);
         List<AppointmentResponse> response = listAppointmentUseCase.listAppointments(filter);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PatchMapping("/reschedule")
+    public ResponseEntity<AppointmentResponse> rescheduleAppointment(@RequestBody @Valid AppointmentRescheduleRequest request) {
+        AppointmentResponse response = rescheduleAppointmentUseCase.rescheduleAppointment(request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

@@ -35,6 +35,12 @@ public class AppointmentService {
         return caceledAppointment;
     }
 
+    public Appointment rescheduleAppointment(UUID appointmentId, LocalDateTime newDate) {
+        Appointment appointment = cancelAppointment(appointmentId);
+        Appointment rescheduledAppointment = appointment.withAppointmentDateAndStatus(newDate, "PROGRAMADA");
+        return scheduleAppointment(rescheduledAppointment);
+    }
+
     protected void createPenalty(Appointment appointment) {
         if(LocalDateTime.now().isAfter(appointment.appointmentDate().minusHours(2))) {
             penaltyRepository.save(new Penalty(null, appointment.patient().id(), LocalDateTime.now()));

@@ -14,4 +14,14 @@ public record Appointment(UUID id, Patient patient, Doctor doctor, LocalDateTime
                 status
         );
     }
+
+    public Appointment withAppointmentDateAndStatus(LocalDateTime newDate, String status) {
+        return new Appointment(
+                null,
+                patient,
+                doctor,
+                newDate,
+                status
+        );
+    }
 }
