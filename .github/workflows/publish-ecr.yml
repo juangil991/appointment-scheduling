@@ -11,7 +11,6 @@ permissions:
   contents: read
 
 jobs:
-
   publish:
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -20,40 +19,46 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Configure AWS
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
 
-      - uses: aws-actions/amazon-ecr-login@v2
+      - name: Login to Amazon ECR Public
+        run: |
+          aws ecr-public get-login-password --region us-east-1 \
+          | docker login \
+            --username AWS \
+            --password-stdin public.ecr.aws
 
-      - name: Build Docker
+      - name: Build Docker Image
         run: |
           docker build \
-            -t ${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }} .
+            -t appointment-scheduling:${{ github.event.workflow_run.head_sha }} .
 
-      - name: Tag SHA
+      - name: Tag Docker Image
         run: |
           docker tag \
-          ${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }} \
-          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }}
+            appointment-scheduling:${{ github.event.workflow_run.head_sha }} \
+            public.ecr.aws/${{ secrets.ECR_PUBLIC_ALIAS }}/${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }}
 
       - name: Tag Latest
         run: |
           docker tag \
-          ${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }} \
-          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+            appointment-scheduling:${{ github.event.workflow_run.head_sha }} \
+            public.ecr.aws/${{ secrets.ECR_PUBLIC_ALIAS }}/${{ secrets.ECR_REPOSITORY }}:latest
 
       - name: Push SHA
         run: |
           docker push \
-          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }}
+            public.ecr.aws/${{ secrets.ECR_PUBLIC_ALIAS }}/${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }}
 
       - name: Push Latest
         run: |
           docker push \
-          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+            public.ecr.aws/${{ secrets.ECR_PUBLIC_ALIAS }}/${{ secrets.ECR_REPOSITORY }}:latest
