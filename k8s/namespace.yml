@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: appointments
+  labels:
+    architecture: microservices
+    environment: production
+    managed-by: github-actions
