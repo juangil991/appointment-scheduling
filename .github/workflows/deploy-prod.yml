@@ -43,7 +43,7 @@ jobs:
         run: |
           kubectl apply -f k8s/namespace.yml
           
-          sed -i "s|git|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }}|g" k8s/deployment.yml
+          sed -i "s|IMAGE_PLACEHOLDER|public.ecr.aws/${{ secrets.ECR_PUBLIC_ALIAS }}/${{ secrets.ECR_REPOSITORY }}:${{ github.event.workflow_run.head_sha }}|g" k8s/deployment.yml
           
           kubectl apply -f k8s/deployment.yml
 
