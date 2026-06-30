@@ -444,3 +444,103 @@ Reprograma una cita existente a un nuevo horario disponible.
     "Estado": "PROGRAMADA"
   }
   ```
+  ---
+
+  # Integración Continua y Despliegue (CI/CD)
+
+El proyecto implementa un flujo de Integración Continua y Despliegue Continuo (CI/CD) utilizando **GitHub Actions** y servicios de **Amazon Web Services (AWS)**, automatizando el ciclo completo desde la compilación hasta el despliegue en Kubernetes.
+
+## Flujo de despliegue
+
+```
+                  Push a GitHub
+                        │
+                        ▼
+         GitHub Actions - Continuous Integration
+                        │
+         ├── Checkout del código
+         ├── Configuración de Java 25
+         ├── Descarga de dependencias
+         ├── Compilación del proyecto
+         ├── Ejecución de pruebas unitarias
+         └── Publicación de artefactos
+                        │
+                        ▼
+        GitHub Actions - Build & Docker Deploy
+                        │
+         ├── Construcción de imagen Docker
+         ├── Login en Amazon ECR
+         ├── Etiquetado de imagen
+         └── Publicación en Amazon ECR
+                        │
+                        ▼
+          GitHub Actions - Deploy Kubernetes
+                        │
+         ├── Aprobación manual
+         ├── Configuración de AWS Credentials
+         ├── Actualización del kubeconfig
+         ├── Actualización de Deployment
+         └── Despliegue en Amazon EKS
+```
+
+## Pipeline 1 - Continuous Integration
+
+Cada cambio enviado al repositorio ejecuta automáticamente un pipeline de Integración Continua encargado de validar la calidad del código.
+
+Este pipeline realiza las siguientes actividades:
+
+- Descarga del código fuente.
+- Configuración del entorno con Java 25.
+- Resolución de dependencias mediante Gradle.
+- Compilación del proyecto.
+- Ejecución de pruebas unitarias.
+- Ejecución de pruebas de integración.
+- Validación del estado del proyecto antes de permitir el despliegue.
+
+Este proceso garantiza que únicamente versiones estables continúen hacia las siguientes etapas del pipeline.
+
+---
+
+## Pipeline 2 - Publicación de imagen Docker
+
+Una vez finalizado correctamente el proceso de Integración Continua, se ejecuta un segundo workflow encargado de construir y publicar la imagen Docker.
+
+Las actividades realizadas son:
+
+- Construcción de la imagen Docker de la aplicación.
+- Autenticación contra Amazon Elastic Container Registry (ECR).
+- Etiquetado de la imagen utilizando el SHA del commit y la etiqueta `latest`.
+- Publicación de la imagen en un repositorio público de Amazon ECR.
+
+Gracias a este proceso, cada versión de la aplicación queda disponible para su despliegue en cualquier entorno.
+
+---
+
+## Pipeline 3 - Despliegue en Amazon EKS
+
+Finalmente, un tercer workflow realiza el despliegue sobre un clúster de Kubernetes administrado mediante Amazon Elastic Kubernetes Service (EKS).
+
+Este pipeline incluye una etapa de aprobación manual antes de iniciar el despliegue, permitiendo validar la liberación hacia el entorno correspondiente.
+
+Las actividades ejecutadas son:
+
+- Aprobación manual del despliegue.
+- Configuración de credenciales AWS.
+- Conexión al clúster de Amazon EKS.
+- Actualización de la imagen del Deployment.
+- Aplicación de los manifiestos de Kubernetes.
+- Verificación del estado del despliegue.
+
+---
+
+## Infraestructura utilizada
+
+| Servicio | Propósito |
+|----------|-----------|
+| GitHub Actions | Automatización de CI/CD |
+| Docker | Empaquetado de la aplicación |
+| Amazon ECR Public | Almacenamiento de imágenes Docker |
+| Amazon EKS | Orquestación de contenedores mediante Kubernetes |
+| Kubernetes | Plataforma de despliegue y escalabilidad |
+| Gradle | Compilación y gestión de dependencias |
+
