@@ -3,7 +3,7 @@ kind: Deployment
 
 metadata:
   name: appointment-scheduling
-  namespace: appointment
+  namespace: appointment-prod
   labels:
     app: appointment-scheduling
 
